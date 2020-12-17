@@ -40,11 +40,12 @@ let writev tls _fd =
 type client = Tls_lwt.Unix.t
 type server = Tls_lwt.Unix.t
 
-let make_client ?client socket =
+let make_client ?client
+      ~certv socket =
   match client with
   | Some client -> Lwt.return client
   | None ->
-    X509_lwt.authenticator `No_authentication_I'M_STUPID >>= fun authenticator ->
+    certv >>= fun authenticator ->
     let config = Tls.Config.client ~authenticator () in
     Tls_lwt.Unix.client_of_fd config socket
 

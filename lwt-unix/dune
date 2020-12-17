@@ -17,7 +17,7 @@ let v ~ssl ~tls () =
 (library
  (name httpaf_lwt_unix)
  (public_name httpaf-lwt-unix)
- (libraries faraday-lwt-unix httpaf lwt.unix %s%s)
+ (libraries faraday-lwt-unix httpaf lwt.unix nocrypto.lwt %s%s)
  (modules buffer httpaf_lwt_unix tls_io ssl_io)
  (flags (:standard -safe-string)))
 |} ssl tls ssl_d tls_d

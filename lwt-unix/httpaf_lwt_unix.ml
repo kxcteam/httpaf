@@ -309,13 +309,13 @@ module Client = struct
     request_body
 
   module TLS = struct
-    let request ?client ?(config=Config.default) socket request ~error_handler ~response_handler =
+    let request ?client ?(config=Config.default) socket request ~certv ~error_handler ~response_handler =
       let request_body, connection =
         Client_connection.request ~config request ~error_handler ~response_handler
       in
 
       Lwt.async(fun () ->
-        Tls_io.make_client ?client socket >|= fun tls_client ->
+        Tls_io.make_client ?client ~certv socket >|= fun tls_client ->
         let readf = Tls_io.readf tls_client in
         let writev = Tls_io.writev tls_client in
 

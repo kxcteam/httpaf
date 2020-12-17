@@ -56,6 +56,7 @@ module Client : sig
       -> ?config          : Config.t
       -> Lwt_unix.file_descr
       -> Request.t
+      -> certv            : X509_lwt.authenticator Lwt.t
       -> error_handler    : Client_connection.error_handler
       -> response_handler : Client_connection.response_handler
       -> [`write] Body.t
